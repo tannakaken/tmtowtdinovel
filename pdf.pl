@@ -13,6 +13,8 @@ my $text = decode('UTF-8', <<EOS);
 \\documentclass{ltjsarticle}
 \\usepackage{amsmath}
 \\usepackage{pxrubrica}
+\\usepackage{url}
+\\usepackage{hyperref}
 
 \\title{$conf->{'title'}}
 \\date{}
@@ -41,8 +43,9 @@ while (my $line = <>) {
   }
 }
 
-$text .= <<'EOS';
-\end{document}
+$text .= decode('UTF-8', <<EOS);
+\\footnote{githubページ:\\url{$conf->{'github'}}}
+\\end{document}
 EOS
 
 print encode('UTF-8', $text);

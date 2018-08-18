@@ -61,7 +61,7 @@ my $text = decode('UTF-8', <<EOS);
   </head>
   <body>
     <h1>$conf->{'title'}</h1>
-    <h2>$conf->{'author'}</h2>
+    <h2>$conf->{'author'} (<a href="$conf->{'github'}">github</a>)</h2>
     <section id="one">
       <p>
 EOS
