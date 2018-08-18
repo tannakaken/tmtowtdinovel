@@ -9,6 +9,6 @@ docs/novel.pdf: main.txt pdf.pl conf.perl converter.pm
 docs/novel.html: main.txt html.pl conf.perl converter.pm
 	perl html.pl main.txt > docs/novel.html
 clean:
-	rm -rf docs/*
+	rm -rf docs/novel.*
 test:
 	prove t
