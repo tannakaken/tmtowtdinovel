@@ -36,6 +36,8 @@
 改ページやルビはpixivの機能で実現できるが、
 あえて使わなかった。
 
+pixivでの投稿は[アビゲイルとリタの悪夢](https://www.pixiv.net/novel/show.php?id=10011003)である。
+
 # 作者
 
 淡中 圏　[<tannakaken@gmail.com>](<mailto:tannakaken@gmail.com>)
