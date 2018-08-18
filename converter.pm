@@ -51,3 +51,65 @@ sub zip_array_to_string {
 }
 
 1;
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+converter - 統一的な書式をそれぞれのファイルの書式へと変換する。
+
+=head1 DESCRIPTION
+
+一つの小説のソースから
+
+=over 4
+
+=item *
+
+ただのテキストファイル
+
+=item *
+
+LaTeXを経由したpdfファイル
+
+=item *
+
+html/css/javascriptを使った動的なwebページ
+
+=back
+
+などを生成するために、統一的な書式で書かれたコマンドをそれぞれの書式へと変換するための関数を含む。
+
+=head1 METHODS
+
+=head2 overlap
+
+二つの文字列が重なっていることを表現する文字列へと変換する。
+
+=head3 SYNOPSIS
+
+  $line = overlap($line, sub {my $left = shift; my $right = shift; return "\$ $left_{$right} \$";});
+
+=head2 ruby
+
+一つの文字列の上にもう一つの文字列がルビとして乗っていることを表現する文字列へと変換する。
+
+=head3 SYNOPSIS
+
+  $line = ruby($line, sub {my $left = shift; my $right = shift; return "\$ $left^{$right} \$";});
+
+=head2 zipstring
+
+二つの文字列を交互に混ぜ合わせた文字列を返す。
+
+=head3 SYNOPSIS
+
+  $ziped = zipstring("abcde", "123"); // => "a1b2c3de"
+
+=head1 AUTHOR
+
+淡中 圏 <tannakaken@gmail.com>
+
+=cut

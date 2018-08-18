@@ -143,3 +143,25 @@ $text .= <<'EOS';
 EOS
 
 print encode('UTF-8', $text);
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+html.pl - 動的なwebページのためのhtmlファイルを生成するスクリプト。
+
+=head1 DESCRIPTION
+
+小説ファイルからhtmlファイルを生成する。
+
+=head1 SYNOPSIS
+
+  perl html.pl main.txt > dist/novel.html
+
+=head1 AUTHOR
+
+淡中 圏 <tannakaken@gmail.com>
+
+=cut

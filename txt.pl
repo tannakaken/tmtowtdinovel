@@ -38,3 +38,25 @@ while (my $line = <>) {
   }
 }
 print encode('UTF-8', $text);
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+txt.pl - テキストファイルを生成するスクリプト。
+
+=head1 DESCRIPTION
+
+小説ファイルからテキストファイルを生成する。
+
+=head1 SYNOPSIS
+
+  perl txt.pl main.txt > dist/novel.txt
+
+=head1 AUTHOR
+
+淡中 圏 <tannakaken@gmail.com>
+
+=cut
