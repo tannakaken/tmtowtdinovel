@@ -19,9 +19,9 @@
 
 つまり、一つのソースから、
 
-* テキストのみによる解決
-* latexを経由したpdfによる解決
-* html/css/javascriptによる解決
+* [テキストのみによる解決](https://tannakaken.github.io/tmtowtdinovel/novel.txt)
+* [latexを経由したpdfによる解決](https://tannakaken.github.io/tmtowtdinovel/novel.pdf)
+* [html/css/javascriptによる解決](https://tannakaken.github.io/tmtowtdinovel/novel.html)
 
 の三つのターゲットファイルを生成するようにした。
 
