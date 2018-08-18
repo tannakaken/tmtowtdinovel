@@ -2,11 +2,11 @@ all: dist/novel.txt dist/novel.pdf dist/novel.html
 
 dist/novel.txt: main.txt txt.pl
 	perl txt.pl main.txt > dist/novel.txt
-dist/novel.pdf: main.txt pdf.pl
+dist/novel.pdf: main.txt pdf.pl conf.perl
 	perl pdf.pl main.txt > dist/novel.tex
 	cd dist; lualatex novel.tex
 	rm dist/novel.tex dist/novel.log dist/novel.aux
-dist/novel.html: main.txt html.pl
+dist/novel.html: main.txt html.pl conf.perl
 	perl html.pl main.txt > dist/novel.html
-clean: 
+clean:
 	rm -rf dist/*

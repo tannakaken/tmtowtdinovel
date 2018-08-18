@@ -3,6 +3,9 @@ use warnings;
 
 use Encode qw/decode encode/;
 
+my $conf_file = './conf.perl';
+my $conf = do $conf_file or die "$!$@";
+
 my $overlap_pattern = '\\\\overlap\{(.*?)\}\{(.*?)\}';
 
 sub overlap {
@@ -30,13 +33,13 @@ sub ruby {
 }
 
 
-my $text = decode('UTF-8', <<'EOS');
+my $text = decode('UTF-8', <<EOS);
 <!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>悪夢</title>
+    <title>$conf->{'title'}</title>
     <style>
 
     body {
@@ -47,13 +50,16 @@ my $text = decode('UTF-8', <<'EOS');
       background-color : black;
       color : white;
     }
+    h2 {
+      text-align : center;
+    }
     section {
       background-color : white;
       width : 60%;
       margin : 5px auto;
       padding : 20px;
     }
-    @media screen and (max-width: 800px) {
+    \@media screen and (max-width: 800px) {
       section {
         width: 90%;
       }
@@ -78,7 +84,8 @@ my $text = decode('UTF-8', <<'EOS');
     </style>
   </head>
   <body>
-    <h1>悪夢</h1>
+    <h1>$conf->{'title'}</h1>
+    <h2>$conf->{'author'}</h2>
     <section id="one">
       <p>
 EOS

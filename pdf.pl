@@ -3,6 +3,9 @@ use warnings;
 
 use Encode qw/decode encode/;
 
+my $conf_file = './conf.perl';
+my $conf = do $conf_file or die "$!$@";
+
 my $overlap_pattern = '\\\\overlap\{(.*?)\}\{(.*?)\}';
 
 sub overlap {
@@ -28,17 +31,17 @@ sub ruby {
 }
 
 
-my $text = decode('UTF-8', <<'EOS');
-\documentclass{ltjsarticle}
-\usepackage{amsmath}
-\usepackage{pxrubrica}
+my $text = decode('UTF-8', <<EOS);
+\\documentclass{ltjsarticle}
+\\usepackage{amsmath}
+\\usepackage{pxrubrica}
 
-\title{悪夢}
-\date{}
-\author{Tannakian Cat}
+\\title{$conf->{'title'}}
+\\date{}
+\\author{$conf->{'author'}}
 
-\begin{document}
-\maketitle
+\\begin{document}
+\\maketitle
 EOS
 
 while (my $line = <>) {
