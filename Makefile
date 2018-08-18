@@ -5,7 +5,7 @@ dist/novel.txt: main.txt txt.pl converter.pm
 dist/novel.pdf: main.txt pdf.pl conf.perl converter.pm
 	perl pdf.pl main.txt > dist/novel.tex
 	cd dist; lualatex novel.tex
-	rm dist/novel.tex dist/novel.log dist/novel.aux
+	rm dist/novel.tex dist/novel.log dist/novel.aux dist/novel.out
 dist/novel.html: main.txt html.pl conf.perl converter.pm
 	perl html.pl main.txt > dist/novel.html
 clean:
