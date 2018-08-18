@@ -36,4 +36,14 @@
 改ページやルビはpixivの機能で実現できるが、
 あえて使わなかった。
 
+# 作者
 
+淡中 圏　[<tannakaken@gmail.com>](<mailto:tannakaken@gmail.com>)
+
+pixivでは[Tannakian Cat](<https://www.pixiv.net/member.php?id=2529861>)という筆名で二次創作小説などを書いている。
+
+Twitterでは[@tannakaken](<https://twitter.com/tannakaken>)として、主にどうでもいいことを呟いている。
+
+[The Dark Side of Forcing](<https://forcing.nagoya/>)という数学同人サークルを運営し、コミケにおいて数学同人誌を頒布している。
+
+[自作Webサイド](<https://tannakaken.xyz>)で、１次創作小説やプログラミングを使った創作をしている。
