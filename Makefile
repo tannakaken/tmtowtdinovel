@@ -10,3 +10,5 @@ dist/novel.html: main.txt html.pl conf.perl converter.pm
 	perl html.pl main.txt > dist/novel.html
 clean:
 	rm -rf dist/*
+test:
+	prove t
