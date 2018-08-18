@@ -15,22 +15,35 @@ sub zipstring {
   }
 }
 
-sub mix {
+my $overlap_pattern = '\\\\overlap\{(.*?)\}\{(.*?)\}';
+
+sub overlap {
   my $line = shift;
-  while ($line =~ /\#\{(.*?)\}\{(.*?)\}/) {
-    my $mixed = zipstring([split(//,$1)], [split(//,$2)]);
-    $line =~ s/\#\{.*?\}\{.*?\}/$mixed/;
+  while ($line =~ /$overlap_pattern/) {
+    my $overlaped = zipstring([split(//,$1)], [split(//,$2)]);
+    $line =~ s/$overlap_pattern/$overlaped/;
   }
   return $line;
 }
 
+my $ruby_pattern = '\\\\ruby\{(.*?)\}\{(.*?)\}';
+
+sub ruby {
+  my $line = shift;
+  while ($line =~ /$ruby_pattern/) {
+    my $rubyed = "$1($2)";
+    $line =~ s/$ruby_pattern/$rubyed/;
+  }
+  return $line;
+}
 
 my $text = "";
 my $new = 1;
 while (my $line = <>) {
   $line = decode('UTF-8', $line);
   chomp($line);
-  $line = mix($line);
+  $line = overlap($line);
+  $line = ruby($line);
   if ($line eq '*****') {
     $text .= "\n$line\n\n";
     next;

@@ -3,18 +3,32 @@ use warnings;
 
 use Encode qw/decode encode/;
 
-sub mix {
+my $overlap_pattern = '\\\\overlap\{(.*?)\}\{(.*?)\}';
+
+sub overlap {
   my $line = shift;
-  while ($line =~ /\#\{(.*?)\}\{(.*?)\}/) {
+  while ($line =~ /$overlap_pattern/) {
     my ($len_1, $len_2) = (length($1), length($2));
     my $len = $len_1 > $len_2 ? $len_1 : $len_2;
-    my $cases = <<EOS;
+    my $overlaped = <<EOS;
 <span class="overlap" style="display : inline-block; width : ${len}em;"><span class="first">$1</span><span class="second">$2</span></span>
 EOS
-    $line =~ s/\#\{.*?\}\{.*?\}/$cases/;
+    $line =~ s/$overlap_pattern/$overlaped/;
   }
   return $line;
 }
+
+my $ruby_pattern = '\\\\ruby\{(.*?)\}\{(.*?)\}';
+
+sub ruby {
+  my $line = shift;
+  while ($line =~ /$ruby_pattern/) {
+    my $rubyed = "<ruby>$1<rp>(</rp><rt>$2</rt><rp>)</rp></ruby>";
+    $line =~ s/$ruby_pattern/$rubyed/;
+  }
+  return $line;
+}
+
 
 my $text = decode('UTF-8', <<'EOS');
 <!DOCTYPE html>
@@ -75,7 +89,8 @@ my @numbers = qw/zero one two three four five size seven eight nine ten/;
 while (my $line = <>) {
   $line = decode('UTF-8', $line);
   chomp($line);
-  $line = mix($line);
+  $line = overlap($line);
+  $line = ruby($line);
   if ($line eq "*****") {
     $text .= <<EOS;
     </section>
