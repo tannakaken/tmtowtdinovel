@@ -3,35 +3,11 @@ use warnings;
 
 use Encode qw/decode encode/;
 
+use lib '.';
+use converter;
+
 my $conf_file = './conf.perl';
 my $conf = do $conf_file or die "$!$@";
-
-my $overlap_pattern = '\\\\overlap\{(.*?)\}\{(.*?)\}';
-
-sub overlap {
-  my $line = shift;
-  while ($line =~ /$overlap_pattern/) {
-    my ($len_1, $len_2) = (length($1), length($2));
-    my $len = $len_1 > $len_2 ? $len_1 : $len_2;
-    my $overlaped = <<EOS;
-<span class="overlap" style="display : inline-block; width : ${len}em;"><span class="first">$1</span><span class="second">$2</span></span>
-EOS
-    $line =~ s/$overlap_pattern/$overlaped/;
-  }
-  return $line;
-}
-
-my $ruby_pattern = '\\\\ruby\{(.*?)\}\{(.*?)\}';
-
-sub ruby {
-  my $line = shift;
-  while ($line =~ /$ruby_pattern/) {
-    my $rubyed = "<ruby>$1<rp>(</rp><rt>$2</rt><rp>)</rp></ruby>";
-    $line =~ s/$ruby_pattern/$rubyed/;
-  }
-  return $line;
-}
-
 
 my $text = decode('UTF-8', <<EOS);
 <!DOCTYPE html>
@@ -96,8 +72,20 @@ my @numbers = qw/zero one two three four five size seven eight nine ten/;
 while (my $line = <>) {
   $line = decode('UTF-8', $line);
   chomp($line);
-  $line = overlap($line);
-  $line = ruby($line);
+  $line = overlap($line, sub {
+    my $left = shift;
+    my $right = shift;
+    my ($len_l, $len_r) = (length($left), length($right));
+    my $len = $len_l > $len_r ? $len_l : $len_r;
+    return <<EOS;
+<span class="overlap" style="display : inline-block; width : ${len}em;"><span class="first">$left</span><span class="second">$right</span></span>
+EOS
+  });
+  $line = ruby($line, sub {
+    my $main = shift;
+    my $ruby = shift;
+    return "<ruby>$main<rp>(</rp><rt>$ruby</rt><rp>)</rp></ruby>";
+  });
   if ($line eq "*****") {
     $text .= <<EOS;
     </section>

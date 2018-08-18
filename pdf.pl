@@ -3,33 +3,11 @@ use warnings;
 
 use Encode qw/decode encode/;
 
+use lib '.';
+use converter;
+
 my $conf_file = './conf.perl';
 my $conf = do $conf_file or die "$!$@";
-
-my $overlap_pattern = '\\\\overlap\{(.*?)\}\{(.*?)\}';
-
-sub overlap {
-  my $line = shift;
-  while ($line =~ /$overlap_pattern/) {
-    my $overlaped = <<EOS;
-{\\scriptsize \$\\begin{cases} \\text{$1} \\\\ \\text{$2} \\end{cases} \$}
-EOS
-    $line =~ s/$overlap_pattern/$overlaped/;
-  }
-  return $line;
-}
-
-my $ruby_pattern = '\\\\ruby\{(.*?)\}\{(.*?)\}';
-
-sub ruby {
-  my $line = shift;
-  while ($line =~ /$ruby_pattern/) {
-    my $rubyed = "\\ruby[g]{$1}{$2}";
-    $line =~ s/$ruby_pattern/$rubyed/;
-  }
-  return $line;
-}
-
 
 my $text = decode('UTF-8', <<EOS);
 \\documentclass{ltjsarticle}
@@ -46,8 +24,16 @@ EOS
 
 while (my $line = <>) {
   $line = decode('UTF-8', $line);
-  $line = overlap($line);
-  $line = ruby($line);
+  $line = overlap($line, sub {
+      my $left = shift;
+      my $right = shift;
+      return "{\\scriptsize \$\\begin{cases} \\text{$left} \\\\ \\text{$right} \\end{cases} \$}"
+  });
+  $line = ruby($line, sub {
+      my $main = shift;
+      my $ruby = shift;
+      return "\\ruby[g]{$main}{$ruby}";
+  });
   if ($line eq "*****\n") {
     $text .= '\newpage' . "\n";
   } else {
