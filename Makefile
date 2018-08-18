@@ -1,14 +1,14 @@
-all: dist/novel.txt dist/novel.pdf dist/novel.html
+all: docs/novel.txt docs/novel.pdf docs/novel.html
 
-dist/novel.txt: main.txt txt.pl converter.pm
-	perl txt.pl main.txt > dist/novel.txt
-dist/novel.pdf: main.txt pdf.pl conf.perl converter.pm
-	perl pdf.pl main.txt > dist/novel.tex
-	cd dist; lualatex novel.tex
-	rm dist/novel.tex dist/novel.log dist/novel.aux dist/novel.out
-dist/novel.html: main.txt html.pl conf.perl converter.pm
-	perl html.pl main.txt > dist/novel.html
+docs/novel.txt: main.txt txt.pl converter.pm
+	perl txt.pl main.txt > docs/novel.txt
+docs/novel.pdf: main.txt pdf.pl conf.perl converter.pm
+	perl pdf.pl main.txt > docs/novel.tex
+	cd docs; lualatex novel.tex
+	rm docs/novel.tex docs/novel.log docs/novel.aux docs/novel.out
+docs/novel.html: main.txt html.pl conf.perl converter.pm
+	perl html.pl main.txt > docs/novel.html
 clean:
-	rm -rf dist/*
+	rm -rf docs/*
 test:
 	prove t
